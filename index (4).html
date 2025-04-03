@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groei met AI | Ultieme Luxe Editie</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+    /* --- Configuration & Variables --- */
+    :root {
+        --primary-black: #020202; /* Even deeper black */
+        --primary-black-rgb: 2, 2, 2;
+        --secondary-black: #080808;
+        --secondary-black-rgb: 8, 8, 8;
+        --accent-dark: #181818;
+        --accent-dark-rgb: 24, 24, 24;
+
+        --text-primary: #f0f0f0; /* Slightly brighter */
+        --text-secondary: #a8a8a8; /* Reduced contrast for subtlety */
+
+        --gold-main: #c09f5c; /* Muted, sophisticated gold */
+        --gold-dark: #a07d3c; /* Darker shade */
+        --gold-light: #e0bf8c; /* Paler highlight */
+        --gold-shine: #f5e5a0; /* Brightest point for effects */
+
+        --font-primary: 'Playfair Display', serif;
+        --font-secondary: 'Inter', sans-serif;
+
+        --transition-smooth: all 0.6s cubic-bezier(0.19, 1, 0.22, 1); /* Very smooth ease-out */
+        --transition-medium: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --transition-fast: all 0.25s ease-out;
+
+        /* --- CRUCIAL: REPLACE WITH YOUR HIGH-RES IMAGE URL --- */
+        --marble-texture-url: url('https://images.unsplash.com/photo-1581986810994-d78f768f5381?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YmxhY2sgZ29sZCBtYXJibGV8fHx8fHwxNzEyMTczNTk5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080'); /* <-- REPLACE THIS! Example from Unsplash */
+
+        /* --- Extreme Marble Layers --- */
+        --marble-layer-1: var(--marble-texture-url); /* Base Texture */
+        --marble-layer-2: linear-gradient(45deg, rgba(var(--gold-dark-rgb, 160, 125, 60), 0.05), rgba(var(--primary-black-rgb), 0.2)); /* Subtle gold/dark veins */
+        --marble-layer-3: radial-gradient(ellipse at center, rgba(var(--gold-light-rgb, 224, 191, 140), 0.03), transparent 70%); /* Faint central glow */
+        --marble-layer-4: linear-gradient(rgba(var(--primary-black-rgb), 0.75), rgba(var(--primary-black-rgb), 0.9)); /* Darkening Overlay */
+
+         /* Add RGB versions for easy rgba() use */
+        --gold-main-rgb: 192, 159, 92;
+        --gold-dark-rgb: 160, 125, 60;
+        --gold-light-rgb: 224, 191, 140;
+        --gold-shine-rgb: 245, 229, 160;
+    }
+
+    /* --- Keyframe Animations --- */
+    @keyframes subtleTextureShift {
+        0% { background-position: 0% 0%, 10% 10%, 50% 50%, 0% 0%; }
+        50% { background-position: 20% 20%, 0% 0%, 40% 60%, 0% 0%; }
+        100% { background-position: 0% 0%, 10% 10%, 50% 50%, 0% 0%; }
+    }
+
+    @keyframes goldShineGradient {
+        0% { background-position: -250% center; }
+        100% { background-position: 250% center; }
+    }
+
+    @keyframes pulseGlowExtreme {
+        0%, 100% {
+            box-shadow: 0 0 8px rgba(var(--gold-main-rgb), 0.2), 0 0 15px rgba(var(--gold-main-rgb), 0.1), 0 4px 15px rgba(0, 0, 0, 0.4);
+            transform: scale(1);
+        }
+        50% {
+            box-shadow: 0 0 20px rgba(var(--gold-shine-rgb), 0.6), 0 0 35px rgba(var(--gold-shine-rgb), 0.4), 0 6px 25px rgba(0, 0, 0, 0.5);
+            transform: scale(1.03);
+        }
+    }
+
+    @keyframes drawDividerLuxury {
+        from { width: 0; opacity: 0; }
+        to { width: 180px; opacity: 1;}
+    }
+
+    @keyframes iconHoverRotate {
+        from { transform: rotateY(0deg) scale(1); }
+        to { transform: rotateY(360deg) scale(1.15); }
+    }
+
+    @keyframes fadeInSmooth {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes fadeInUpSmooth {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomInSmooth {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+
+    /* --- Base Styles --- */
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        font-size: 16px; /* Base for rem units */
+    }
+
+    body {
+        background-color: var(--primary-black);
+        /* --- EXTREME MARBLE BACKGROUND --- */
+        background-image:
+            var(--marble-layer-4), /* Dark Overlay - Top */
+            var(--marble-layer-3), /* Subtle Radial Glow */
+            var(--marble-layer-2), /* Veins */
+            var(--marble-layer-1); /* Base Texture - Bottom */
+        background-size: cover, 150% 150%, 200% 200%, cover; /* Different sizes for depth */
+        background-repeat: no-repeat, repeat, repeat, no-repeat;
+        background-position: center center, 0% 0%, 50% 50%, center center;
+        background-attachment: fixed; /* Parallax effect */
+        background-blend-mode: normal, overlay, multiply, normal; /* Blend layers */
+        color: var(--text-primary);
+        font-family: var(--font-secondary);
+        font-size: 1.1rem;
+        line-height: 1.85; /* Generous spacing */
+        font-weight: 300;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* Subtle animation on one of the texture layers */
+        animation: subtleTextureShift 45s linear infinite alternate;
+    }
+
+    /* --- Typography Enhancements --- */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-primary);
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--gold-light);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); /* Deeper shadow */
+        letter-spacing: -0.5px; /* Slightly tighter */
+    }
+
+    .section-title {
+        font-size: clamp(2.8rem, 7vw, 5rem); /* Larger base, more responsive */
+        font-weight: 900; /* Bolder */
+        margin-bottom: 1.5rem;
+        background: linear-gradient(90deg, var(--gold-light), var(--gold-main), var(--gold-shine), var(--gold-main), var(--gold-light));
+        background-size: 250% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: goldShineGradient 10s linear infinite;
+    }
+
+    .gold-text-static { /* Static Gold Text - Refined */
+        background: linear-gradient(135deg, var(--gold-light) 10%, var(--gold-main) 60%, var(--gold-dark) 90%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    p {
+        font-weight: 300;
+        color: var(--text-secondary);
+        margin-bottom: 1.8rem; /* Slightly more spacing */
+        max-width: 70ch; /* Optimal reading width */
+    }
+    .lead {
+        font-size: 1.4rem;
+        font-weight: 300; /* Keep lead light */
+        color: var(--text-primary);
+        max-width: 65ch; /* Limit width */
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.7;
+    }
+
+    a {
+        color: var(--gold-main);
+        text-decoration: none;
+        position: relative;
+        transition: var(--transition-fast);
+        padding-bottom: 2px; /* Space for underline */
+    }
+    a::after { /* Animated underline */
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: linear-gradient(90deg, var(--gold-main), var(--gold-light));
+        transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    a:hover {
+        color: var(--gold-light);
+        text-decoration: none; /* Remove default */
+    }
+    a:hover::after {
+        width: 100%;
+    }
+
+    /* --- Buttons - Extreme Luxury Refined --- */
+    .btn-gold {
+        display: inline-block;
+        background: linear-gradient(140deg, var(--gold-light) 0%, var(--gold-main) 45%, var(--gold-dark) 100%);
+        background-size: 200% auto; /* For smoother gradient shift */
+        color: var(--primary-black);
+        border: 1px solid transparent; /* Start transparent */
+        border-image: linear-gradient(140deg, var(--gold-main), var(--gold-dark)) 1;
+        padding: calc(1rem + 2px) calc(2.5rem + 2px); /* Increase padding slightly, account for border */
+        font-family: var(--font-secondary);
+        font-weight: 500;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        transition: var(--transition-smooth);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5),
+                    inset 0 -3px 4px rgba(0,0,0,0.25), /* Stronger inner shadow */
+                    inset 0 2px 3px rgba(255,255,255,0.1); /* Subtle inner highlight */
+        text-transform: uppercase;
+        letter-spacing: 1.5px; /* More spacing */
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transform: perspective(1000px); /* Enable 3D transforms */
+    }
+
+    .btn-gold::before { /* Gloss/Shine effect */
+        content: '';
+        position: absolute;
+        top: -50%; /* Start off further */
+        left: -100%;
+        width: 50%; /* Narrower shine */
+        height: 200%; /* Taller shine */
+        background: linear-gradient(100deg, transparent, rgba(var(--gold-shine-rgb), 0.4), transparent);
+        transform: skewX(-25deg); /* Angled shine */
+        transition: left 0.8s cubic-bezier(0.19, 1, 0.22, 1); /* Match smooth transition */
+        z-index: 1; /* Above background, below text */
+    }
+
+    .btn-gold:hover, .btn-gold:focus {
+        background-position: right center;
+        color: #000;
+        border-image: linear-gradient(140deg, var(--gold-light), var(--gold-shine)) 1;
+        transform: translateY(-6px) scale(1.05) rotateX(5deg); /* More lift, subtle 3D tilt */
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6),
+                    inset 0 -2px 3px rgba(0,0,0,0.3),
+                    inset 0 2px 2px rgba(255,255,255,0.1),
+                    0 0 25px rgba(var(--gold-shine-rgb), 0.5); /* Stronger glow */
+        outline: none;
+    }
+    .btn-gold:hover::before {
+        left: 150%; /* Move shine fully across */
+    }
+
+    .btn-pulse {
+        animation: pulseGlowExtreme 3s infinite ease-in-out;
+    }
+
+    /* --- Sections & Layout --- */
+    section {
+        padding: clamp(5rem, 12vh, 10rem) 1.5rem; /* Increased padding */
+        position: relative;
+        overflow: hidden;
+        /* Subtle overlay to ensure readability over complex marble */
+        background: linear-gradient(rgba(var(--primary-black-rgb), 0.8), rgba(var(--primary-black-rgb), 0.92));
+        margin-bottom: 3rem; /* More space */
+        border-radius: 20px; /* Slightly more rounded */
+        box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+        border: 1px solid rgba(var(--gold-dark-rgb), 0.1); /* Very subtle border */
+    }
+
+    /* Alternate dark background */
+    .lux-bg {
+        background: var(--secondary-black); /* Solid dark alternative */
+        box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        border-color: rgba(var(--gold-dark-rgb), 0.15);
+    }
+
+    /* --- Divider --- */
+    .divider {
+        width: 0px; /* Start at 0 for animation */
+        height: 3px; /* Thinner */
+        background: linear-gradient(90deg, transparent, var(--gold-main) 30%, var(--gold-shine) 50%, var(--gold-main) 70%, transparent);
+        margin: 2.5rem auto 4.5rem; /* More spacing */
+        border: none;
+        border-radius: 3px;
+        opacity: 0;
+        transition: opacity 1.2s ease-out, width 1.2s cubic-bezier(0.19, 1, 0.22, 1); /* Smooth growth */
+    }
+    .divider.is-visible { /* Class added by JS */
+       width: 180px; /* Target width */
+       opacity: 1;
+    }
+
+
+    /* --- Hero Section --- */
+    .hero {
+        padding: clamp(10rem, 30vh, 18rem) 1rem; /* Even taller */
+        min-height: 100vh; /* Full viewport height */
+        color: #ffffff;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        border-radius: 0; /* Full width */
+        box-shadow: none;
+        margin-bottom: 5rem; /* More space after hero */
+        /* Override section background, use direct marble with stronger overlay */
+        background: linear-gradient(rgba(var(--primary-black-rgb), 0.6), rgba(var(--primary-black-rgb), 0.9)), var(--marble-texture-url);
+        background-size: cover, cover;
+        background-repeat: no-repeat, no-repeat;
+        background-attachment: scroll, fixed; /* Overlay scrolls, marble stays */
+        background-position: center center, center center;
+        overflow: hidden; /* Contain ::after */
+    }
+
+    .hero::after { /* Bottom fade effect - Taller */
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 150px; /* Taller fade */
+        background: linear-gradient(to top, var(--primary-black), transparent);
+        z-index: 1;
+    }
+
+    /* Use smooth fade-in/up animations instead of Animate.css */
+    .hero h1 {
+        font-size: clamp(3.5rem, 9vw, 7rem); /* Truly massive title */
+        color: #ffffff;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+        font-weight: 900; /* Max weight */
+        letter-spacing: -2px; /* Tight spacing */
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        animation: zoomInSmooth 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.3s forwards;
+    }
+    .hero p.lead {
+        margin-top: 2.5rem;
+        margin-bottom: 3.5rem;
+        font-size: 1.6rem; /* Larger lead */
+        color: var(--text-primary);
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        animation: fadeInUpSmooth 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.6s forwards;
+    }
+    .hero .btn-gold {
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        animation: fadeInUpSmooth 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.9s forwards;
+         /* Ensure pulse animation starts after fade-in */
+        animation-delay: 0.9s, 2.5s; /* Delay for fadeInUp, then delay for pulse */
+        animation-name: fadeInUpSmooth, pulseGlowExtreme;
+        animation-fill-mode: forwards, none; /* Pulse should not stay in final state */
+        animation-iteration-count: 1, infinite;
+        animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1), ease-in-out;
+    }
+
+    /* --- Icon Boxes / Feature Cards --- */
+    .icon-box {
+        padding: 3.5rem 2.5rem; /* More padding */
+        border-radius: 16px; /* Match section */
+        background: linear-gradient(150deg, rgba(var(--accent-dark-rgb), 0.6), rgba(var(--primary-black-rgb), 0.7));
+        backdrop-filter: blur(12px) saturate(150%); /* Stronger glass */
+        border: 1px solid rgba(var(--gold-main-rgb), 0.25);
+        box-shadow: 0 12px 45px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.03); /* Subtle inner top highlight */
+        transition: var(--transition-smooth);
+        text-align: center;
+        min-height: 350px; /* Even taller */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: relative;
+        overflow: hidden;
+    }
+    .icon-box::before { /* Animated top border accent */
+        content: '';
+        position: absolute;
+        top: 0; left: 50%; /* Start in middle */
+        width: 0; /* Start hidden */
+        height: 4px; /* Thicker */
+        background: linear-gradient(90deg, transparent, var(--gold-shine), transparent);
+        opacity: 0;
+        transition: width 0.6s var(--transition-smooth), left 0.6s var(--transition-smooth), opacity 0.4s ease-out;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    .icon-box:hover {
+        transform: translateY(-18px) scale(1.04); /* More extreme lift */
+        background: linear-gradient(150deg, rgba(var(--accent-dark-rgb), 0.7), rgba(var(--primary-black-rgb), 0.85));
+        border-color: rgba(var(--gold-light-rgb), 0.5);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 0 20px rgba(var(--gold-main-rgb),0.25);
+    }
+    .icon-box:hover::before {
+        width: 80%; /* Expand */
+        opacity: 0.8;
+        left: 50%;
+    }
+
+    .icon-box img {
+        width: 70px; height: 70px;
+        margin: 0 auto 2.5rem auto; /* More space below icon */
+        filter: brightness(0) invert(85%) sepia(20%) saturate(400%) hue-rotate(-20deg) opacity(0.7); /* Subtle desaturated gold */
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Slight overshoot */
+    }
+    .icon-box:hover img {
+        filter: none; /* Change to full color/gold on hover - replace with actual gold SVG/PNG if possible */
+         filter: invert(75%) sepia(61%) saturate(495%) hue-rotate(357deg) brightness(94%) contrast(88%) drop-shadow(0 0 8px rgba(var(--gold-shine-rgb), 0.5)); /* Gold filter + glow */
+        animation: iconHoverRotate 0.8s ease-out forwards;
+        opacity: 1;
+    }
+
+    .icon-box h5 {
+        color: var(--gold-light);
+        font-size: 1.5rem; /* Adjusted size */
+        margin-bottom: 1rem;
+        font-weight: 400; /* Lighter weight */
+        font-family: var(--font-secondary);
+        transition: color var(--transition-medium);
+    }
+     .icon-box:hover h5 {
+        color: var(--gold-shine);
+    }
+
+    .icon-box p {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.7; /* Increased line height */
+        transition: color var(--transition-medium);
+    }
+    .icon-box:hover p {
+        color: var(--text-primary);
+    }
+
+    /* --- Trust Badges --- */
+    .trust-badges {
+        background-color: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 5rem 1rem; /* More vertical padding */
+        margin: 6rem auto; /* More spacing around */
+        text-align: center;
+        border: none;
+    }
+    .trust-badges h2 { margin-bottom: 1rem; }
+    .trust-badges .divider { margin-bottom: 5rem; }
+    .trust-badges img {
+        margin: 1.5rem 2.5rem; /* More spacing */
+        max-height: 65px; /* Slightly larger */
+        filter: brightness(0) invert(1) opacity(0.4); /* Even dimmer */
+        transition: var(--transition-smooth);
+        cursor: pointer;
+    }
+    .trust-badges img:hover {
+        filter: none; /* Show original color (if logos have color) OR apply gold filter */
+        /* Example gold filter if logos are B/W: */
+        /* filter: invert(75%) sepia(61%) saturate(495%) hue-rotate(357deg) brightness(94%) contrast(88%) drop-shadow(0 0 10px rgba(var(--gold-main-rgb), 0.4)); */
+        opacity: 1;
+        transform: scale(1.25) translateY(-5px); /* Larger scale, slight lift */
+    }
+
+    /* --- FAQ Section --- */
+    .faq {
+        border: none;
+        border-left: 5px solid; /* Use border-image */
+        border-image: linear-gradient(to bottom, rgba(var(--gold-dark-rgb), 0.4), rgba(var(--gold-main-rgb), 0.8)) 1;
+        padding: 2.5rem 3rem; /* More padding */
+        margin-bottom: 2.5rem; /* More space between */
+        background: linear-gradient(rgba(var(--accent-dark-rgb), 0.5), rgba(var(--primary-black-rgb), 0.7));
+        backdrop-filter: blur(8px);
+        border-radius: 12px; /* Softer radius */
+        transition: var(--transition-smooth);
+        box-shadow: 0 10px 30px rgba(0,0,0, 0.4);
+        position: relative;
+    }
+    .faq:hover {
+        background: linear-gradient(rgba(var(--accent-dark-rgb), 0.7), rgba(var(--primary-black-rgb), 0.9));
+        border-image: linear-gradient(to bottom, var(--gold-light), var(--gold-shine)) 1;
+        transform: translateX(15px) scale(1.02); /* More pronounced move */
+        box-shadow: 0 15px 40px rgba(0,0,0, 0.5), 0 0 15px rgba(var(--gold-main-rgb),0.3);
+    }
+    .faq h5 {
+        color: var(--gold-light);
+        margin-bottom: 0.8rem;
+        font-size: 1.4rem; /* Slightly larger */
+        font-weight: 500;
+        font-family: var(--font-secondary);
+        transition: color var(--transition-medium);
+    }
+     .faq:hover h5 {
+        color: var(--gold-shine);
+     }
+    .faq p {
+        margin-bottom: 0;
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        transition: color var(--transition-medium);
+    }
+     .faq:hover p {
+        color: var(--text-primary);
+     }
+
+
+    /* --- Testimonials --- */
+    .testimonial {
+        background: transparent;
+        border: none;
+        border-left: 10px solid; /* Thicker gradient border */
+        border-image: linear-gradient(180deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%) 1;
+        padding: 3rem 3.5rem; /* More padding */
+        margin-bottom: 3.5rem; /* More space */
+        box-shadow: 5px 10px 35px rgba(0,0,0,0.6); /* Offset shadow */
+        color: var(--text-primary);
+        border-radius: 0 20px 20px 0; /* Match section radius */
+        position: relative;
+        font-style: italic;
+        transition: var(--transition-smooth);
+        backdrop-filter: blur(5px) brightness(1.1); /* Subtle brighten */
+    }
+    .testimonial:hover {
+        transform: scale(1.03) translateX(10px); /* Scale and move */
+        box-shadow: 8px 18px 45px rgba(0,0,0,0.7), 0 0 20px rgba(var(--gold-light-rgb),0.2);
+        border-image: linear-gradient(180deg, var(--gold-light) 0%, var(--gold-shine) 50%, var(--gold-light) 100%) 1;
+    }
+    .testimonial p {
+        font-size: 1.35rem; /* Larger quote */
+        margin-bottom: 1.8rem;
+        color: #e0e0e0; /* Slightly brighter quote */
+        line-height: 1.8;
+        font-weight: 300;
+    }
+    .testimonial small {
+        font-style: normal;
+        color: var(--gold-main);
+        font-weight: 500;
+        display: block;
+        margin-top: 2rem;
+        text-align: right;
+        font-size: 1.05rem;
+        transition: color var(--transition-medium);
+    }
+     .testimonial:hover small {
+        color: var(--gold-light);
+     }
+
+    .testimonial::before { /* Quote mark - More stylized */
+        content: '“';
+        font-family: var(--font-primary);
+        font-style: normal;
+        font-weight: 900;
+        font-size: 8rem; /* Larger */
+        color: rgba(var(--gold-dark-rgb), 0.08); /* Very faint */
+        position: absolute;
+        top: -0.5rem; /* Position adjustment */
+        left: 1rem;
+        line-height: 1;
+        z-index: -1;
+        transition: color 0.5s ease;
+    }
+    .testimonial:hover::before {
+       color: rgba(var(--gold-main-rgb), 0.15); /* Slightly more visible on hover */
+    }
+
+    /* --- Form Section --- */
+    #download {
+        /* Use the marble texture again, maybe slightly different blend */
+        background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), var(--marble-texture-url);
+        background-size: cover, cover;
+        background-attachment: scroll, fixed;
+        background-position: center center, center center;
+        border-radius: 20px; /* Match sections */
+        border: 1px solid rgba(var(--gold-dark-rgb), 0.2);
+    }
+    .form-control {
+        background-color: rgba(var(--primary-black-rgb), 0.4); /* Darker, glassier */
+        border: 1px solid rgba(var(--gold-main-rgb), 0.4);
+        color: var(--text-primary);
+        padding: 1.2rem 1.8rem; /* Generous padding */
+        border-radius: 10px;
+        transition: var(--transition-medium);
+        font-size: 1.1rem;
+        backdrop-filter: blur(8px);
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .form-control::placeholder { color: #888; opacity: 1; } /* Ensure placeholder is visible */
+    .form-control:focus {
+        background-color: rgba(var(--primary-black-rgb), 0.5);
+        border-color: var(--gold-light); /* Brighter border on focus */
+        box-shadow: 0 0 20px rgba(var(--gold-light-rgb), 0.4), inset 0 1px 4px rgba(0,0,0,0.4);
+        color: #fff;
+        outline: none; /* Remove default outline */
+    }
+    #download form { max-width: 650px; } /* Slightly wider */
+    #download button[type="submit"] { margin-top: 2rem; }
+
+    /* --- Footer --- */
+    footer.lux-bg {
+        padding: 4rem 1rem; /* More padding */
+        border-top: 2px solid rgba(var(--gold-dark-rgb), 0.3); /* Thicker border */
+        background: var(--primary-black); /* Deepest black */
+        margin-top: 5rem;
+        border-radius: 25px 25px 0 0; /* More rounded top corners */
+    }
+    footer p {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        margin-bottom: 0.5rem; /* Less space */
+     }
+    footer small {
+        color: #888; /* Lighter grey */
+        font-size: 0.9rem;
+     }
+    footer small a {
+        color: #aaa; /* Lighter link color */
+        margin: 0 0.5rem;
+        padding-bottom: 1px; /* Adjust for underline */
+    }
+     footer small a::after { /* Use animated underline */
+        background: linear-gradient(90deg, #aaa, #ccc);
+     }
+    footer small a:hover {
+        color: var(--gold-light);
+    }
+     footer small a:hover::after {
+        background: linear-gradient(90deg, var(--gold-main), var(--gold-light));
+     }
+
+    /* --- Animations Control (Intersection Observer) --- */
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(60px); /* Start further down */
+        transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1), transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+        will-change: opacity, transform; /* Performance hint */
+    }
+    .animate-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Staggered animation delays */
+    .delay-1 { transition-delay: 0.2s; }
+    .delay-2 { transition-delay: 0.4s; }
+    .delay-3 { transition-delay: 0.6s; }
+    .delay-4 { transition-delay: 0.8s; }
+    .delay-5 { transition-delay: 1.0s; } /* Added more delays if needed */
+    .delay-6 { transition-delay: 1.2s; }
+
+
+    /* --- Mobile Responsiveness --- */
+    @media (max-width: 992px) {
+        .section-title { letter-spacing: -1px; }
+        .hero h1 { letter-spacing: -1.5px; }
+        .testimonial { padding: 2.5rem 2rem; }
+        .testimonial::before { font-size: 6rem; left: 1rem; }
+    }
+
+    @media (max-width: 768px) {
+        body { font-size: 1rem; line-height: 1.75; }
+        section { padding: clamp(3.5rem, 10vh, 6rem) 1rem; }
+        .icon-box { min-height: auto; padding: 2.5rem 1.5rem; }
+         .icon-box:hover {
+            transform: translateY(-10px) scale(1.03); /* Less extreme lift on mobile */
+         }
+        .testimonial { padding: 2rem 1.5rem; }
+        .testimonial::before { font-size: 5rem; left: 0.5rem; }
+         .testimonial:hover {
+            transform: scale(1.02) translateX(5px);
+         }
+        .faq { padding: 2rem 1.5rem; }
+         .faq:hover {
+            transform: translateX(8px) scale(1.01);
+         }
+        .btn-gold { padding: calc(0.9rem + 2px) calc(2rem + 2px); font-size: 1rem; letter-spacing: 1px;}
+        .trust-badges img { margin: 1rem 1.5rem; max-height: 50px; }
+
+        /* Mobile Sticky Footer Bar - Using Hero Container */
+        .hero {
+            /* Change to sticky footer on mobile */
+            position: fixed; /* Use fixed for consistent bottom placement */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            min-height: auto !important; /* Override desktop height */
+            padding: 1rem 1rem !important; /* Force smaller padding */
+            /* Solid, slightly transparent background */
+            background: linear-gradient(to top, rgba(var(--primary-black-rgb), 0.98), rgba(var(--secondary-black-rgb), 0.95));
+            backdrop-filter: blur(10px); /* Add blur */
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.6);
+            border-top: 1px solid rgba(var(--gold-dark-rgb), 0.3);
+            border-radius: 0 !important; /* Remove rounding */
+            margin-bottom: 0 !important; /* Remove bottom margin */
+            /* Ensure marble is definitely off for mobile sticky */
+            background-image: linear-gradient(to top, rgba(var(--primary-black-rgb), 0.98), rgba(var(--secondary-black-rgb), 0.95));
+            background-attachment: scroll !important;
+            animation: none !important; /* Disable hero entrance animations */
+        }
+        .hero h1,
+        .hero p.lead {
+            display: none; /* Hide title/lead when sticky */
+        }
+        .hero .btn-gold {
+            width: 90%; /* Almost full width */
+            max-width: 350px;
+            margin: 0 auto; /* Center it */
+            display: block;
+            padding: calc(0.8rem + 2px) calc(1.5rem + 2px); /* Adjust padding for mobile button */
+            animation: pulseGlowExtreme 3s infinite ease-in-out !important; /* Re-enable pulse only */
+            opacity: 1 !important; /* Ensure visible */
+            transform: none !important; /* Reset transforms */
+        }
+
+        /* Prevent content from being hidden behind sticky footer */
+        body {
+            /* Add padding to the bottom equal to approx sticky bar height */
+            /* Adjust based on final .hero padding/button size on mobile */
+            padding-bottom: 90px; /* Example value, adjust as needed */
+        }
+
+        #download form { max-width: 95%; } /* Allow form to be wider on mobile */
+
+    } /* End Media Query 768px */
+
+     @media (max-width: 576px) {
+         .hero h1 { font-size: clamp(2.5rem, 12vw, 3.5rem); letter-spacing: -1px;}
+         .hero p.lead { font-size: 1.2rem; }
+         .section-title { font-size: clamp(2.2rem, 10vw, 3rem); }
+         .btn-gold { letter-spacing: 0.8px; }
+         .testimonial p { font-size: 1.15rem; }
+         .faq h5 { font-size: 1.2rem; }
+         .faq p { font-size: 1rem; }
+     }
+
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <h1>Laat je bedrijf groeien met AI en ChatGPT</h1>
+        <p class="lead">Ontvang ons gratis e-book en ontdek hoe AI je onderneming kan transformeren</p>
+        <a href="#download" class="btn btn-gold btn-lg mt-4 btn-pulse">Download gratis e-book</a>
+    </header>
+
+    <main>
+
+        <section class="container text-center">
+            <h2 class="section-title gold-text-static animate-on-scroll">Wat je zal leren</h2>
+            <div class="divider animate-on-scroll"></div>
+            <div class="row mt-5 g-5 justify-content-center">
+                <div class="col-md-6 col-lg-4 animate-on-scroll delay-1">
+                    <div class="icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4305/4305620.png" alt="Slimmere workflows icoon">
+                        <h5>Slimmere workflows</h5>
+                        <p>Automatiseer repetitieve taken en win kostbare tijd terug voor strategische groei.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 animate-on-scroll delay-2">
+                    <div class="icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/427/427735.png" alt="ChatGPT content creatie icoon">
+                        <h5>ChatGPT voor content</h5>
+                        <p>Creëer moeiteloos overtuigende en waardevolle inhoud zonder externe experts.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 animate-on-scroll delay-3">
+                    <div class="icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Omzetgroei icoon">
+                        <h5>Groei je omzet</h5>
+                        <p>Optimaliseer je verkoopproces en genereer meer gekwalificeerde leads met AI-inzichten.</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#download" class="btn btn-gold btn-lg mt-5 animate-on-scroll delay-4">Download nu het e-book</a>
+        </section>
+
+        <section class="container trust-badges">
+            <h2 class="section-title gold-text-static animate-on-scroll">Vertrouwd door professionals</h2>
+            <div class="divider animate-on-scroll delay-1"></div>
+            <div class="d-flex flex-wrap justify-content-center align-items-center animate-on-scroll delay-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Voorbeeld logo 1" class="animate-on-scroll delay-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Voorbeeld logo 2" class="animate-on-scroll delay-4">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png" alt="Voorbeeld logo 3" class="animate-on-scroll delay-5">
+                <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="Voorbeeld logo 4" class="animate-on-scroll delay-6">
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title gold-text-static text-center animate-on-scroll">Veelgestelde vragen</h2>
+            <div class="divider animate-on-scroll delay-1"></div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10"> <div class="animate-on-scroll delay-2">
+                        <div class="faq">
+                            <h5>Is dit e-book echt volledig kosteloos?</h5>
+                            <p>Absoluut. U ontvangt onmiddellijk en zonder verplichtingen toegang na het invullen van uw e-mailadres.</p>
+                        </div>
+                    </div>
+                    <div class="animate-on-scroll delay-3">
+                        <div class="faq">
+                            <h5>Voor wie is dit exclusieve e-book bedoeld?</h5>
+                            <p>Voor visionaire ondernemers, resultaatgerichte marketeers, en ambitieuze freelancers die streven naar maximale efficiëntie en impact met AI.</p>
+                        </div>
+                    </div>
+                    <div class="animate-on-scroll delay-4">
+                        <div class="faq">
+                            <h5>Wat als ik al enige ervaring heb met AI-tools?</h5>
+                            <p>Zelfs doorgewinterde gebruikers zullen nieuwe, geavanceerde strategieën en direct toepasbare inzichten ontdekken die hun resultaten naar een hoger niveau tillen.</p>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section class="lux-bg">
+            <div class="container">
+                <h2 class="section-title text-center gold-text-static mb-4 animate-on-scroll">Wat anderen zeggen</h2>
+                <div class="divider animate-on-scroll delay-1"></div>
+                 <div class="row justify-content-center g-4"> <div class="col-lg-10">
+                        <div class="testimonial animate-on-scroll delay-2">
+                            <p>“Werkelijk transformerend. De AI-automatisering heeft mijn workflow gestroomlijnd op manieren die ik nooit voor mogelijk had gehouden. Een absolute must-read voor elke serieuze ondernemer!”</p>
+                            <small>- Isabella V., CEO, Innovatech Solutions</small>
+                        </div>
+                     </div>
+                     <div class="col-lg-10">
+                        <div class="testimonial animate-on-scroll delay-4">
+                            <p>“De strategieën voor ChatGPT alleen al zijn puur goud waard. Ik produceer nu content van topniveau in een fractie van de tijd. Ongekende waarde en direct toepasbaar.”</p>
+                            <small>- David L., Senior Content Marketing Specialist</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" id="download">
+            <h2 class="section-title gold-text-static text-center animate-on-scroll">Ontgrendel Uw Groeipotentieel: Download Nu</h2>
+            <div class="divider animate-on-scroll delay-1"></div>
+            <form class="mt-4 mx-auto animate-on-scroll delay-2" action="#" method="POST">
+                <div class="mb-4">
+                    <input type="text" class="form-control" placeholder="Uw Voornaam" required aria-label="Voornaam">
+                </div>
+                <div class="mb-4">
+                    <input type="email" class="form-control" placeholder="Uw Zakelijke E-mailadres" required aria-label="E-mailadres">
+                </div>
+                <button type="submit" class="btn btn-gold btn-lg w-100 btn-pulse">Stuur mij het Exclusieve E-book</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="lux-bg text-center">
+        <div class="container">
+            <p class="mb-1">© 2025 AI Boost Agency. Alle Rechten Voorbehouden.</p>
+            <small><a href="#">Privacybeleid</a> | <a href="#">Algemene Voorwaarden</a> | <a href="#">Contact</a></small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Intersection Observer for Scroll Animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollElements = document.querySelectorAll(".animate-on-scroll");
+
+            // Stricter threshold for dividers to ensure they are well in view
+            const dividerObserver = new IntersectionObserver((entries) => {
+                 entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        dividerObserver.unobserve(entry.target); // Animate once
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% visible
+
+            // General observer for other elements
+            const generalObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Check if it's NOT a divider before adding is-visible
+                        // Dividers are handled separately by dividerObserver
+                        if (!entry.target.classList.contains('divider')) {
+                            entry.target.classList.add("is-visible");
+                        }
+                        // Optional: Unobserve general elements after first animation
+                        // generalObserver.unobserve(entry.target);
+                    }
+                    // Optional: Remove class if scrolling back up and want to re-animate
+                    // else {
+                    //    if (!entry.target.classList.contains('divider')) { // Don't remove from divider
+                    //        entry.target.classList.remove("is-visible");
+                    //    }
+                    // }
+                });
+            }, {
+                threshold: 0.15 // Trigger when 15% visible for general elements
+            });
+
+            scrollElements.forEach(el => {
+                if (el.classList.contains('divider')) {
+                    dividerObserver.observe(el);
+                } else {
+                    generalObserver.observe(el);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
